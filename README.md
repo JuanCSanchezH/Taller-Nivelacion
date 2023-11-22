@@ -597,3 +597,251 @@ Respuesta a las preguntas 10 y 11.
 
 En el contexto de eventos del DOM, el "event bubbling" se refiere al crecimiento o avance de un evento a nivel de jerarquía, desde el elemento objetivo hasta el elemento raíz del documento. Este proceso permite la captura del evento en elementos superiores. Por otro lado, el "event delegation" es una técnica que consiste en asignar un único controlador de eventos a un elemento padre de varios subelementos similares. Este controlador determina el elemento específico que desencadenó el evento al verificar el objetivo del evento dentro del controlador, por tanto, esta última ayuda a reducir la cantidad de controladores a implementar, cuando se trata de múltiples elementos similares dentro de un elemento superior común. Ambos conceptos son fundamentales para comprender y gestionar la interacción de eventos en el desarrollo web, permitiendo la creación de interfaces interactivas y eficientes.
 
+## Módulo sobre Comunicación con el Servidor (Storage, Promesas, Asincronías y Peticiones HTTPS)
+
+1. Definir brevemente el concepto de localStorage y sessionStorage.
+
+2.	Describir las diferencias claves entre localStorage y sessionStorage.
+
+Respuesta para las preguntas 1 y 2.
+
+LocalStorage y sessionStorage son dos modalidades de almacenamiento de información en el navegador (web) para que los desarrolladores puedan almacenar, manipular y transferir datos desde la interfaz de manera constante (sesión). Existen dos cosas importantes a la hora de hablar de estas modalidades de almacenamiento: persistencia y alcance. En el caso de localStorage los datos tienen una persistencia a largo plazo y permanecen incluso después de cerrar y volver a abrir el navegador. En contraparte, en sessionStorage, la información no persiste más allá de la sesión actual del usuario, por tanto, al cerrar el navegador, la información se pierde.
+
+En cuanto al alcance, para el primer caso, los datos almacenados están disponibles para todas las ventanas y pestañas que pertenecen al mismo dominio, mientras que en el otro, están limitados a la ventana o pestaña que crea los datos.
+
+3. ¿Por qué son útiles para almacenar datos en el navegador y cuál es su límite de capacidad?
+
+Es útil almacenar los datos en el navegador, ya que brindan muchas alternativas a procesos que se pueden volver engorrosos, mejorar la eficiencia y la experiencia. Además, aporta persistencia del lado del cliente y reduce la cantidad de datos que debe transferir el cliente al servidor, mejorando así el rendimiento.
+
+La capacidad varía según el navegador y puede oscilar entre 5 MB y 10 MB o más. Sin embargo, es importante tener en cuenta que este límite es por dominio, pues cada uno tiene su propio espacio de almacenamiento local. Generalmente, localStorage debe tener una mayor capacidad de almacenamiento, debido a que la información perdura por mucho más tiempo.
+
+Fuente: https://platzi.com/blog/local-storage-html5/#:~:text=Las%20caracter%C3%ADsticas%20de%20Local%20Storage,a%20diferencia%20de%20las%20cookies
+
+4. ¿Qué son las promesas en JavaScript y para qué se utilizan en el desarrollo web?
+
+5. Explica el concepto de asincronía en programación y cómo las promesas ayudan a manejar operaciones asincrónicas.
+
+Como parte de la actualización de ECMAScript 6, las promesas son modelos estructurados como parte de la calidad en las operaciones asincrónicas, pues permiten que se ejecuten dichas operaciones de manera limpia y efectiva, controlando el resultado y los errores. Además, ofrecen una manera de escribir código asincrónico de una manera más intuitiva y sintácticamente más clara. 
+
+En una promesa hay tres estados: pending (pendiente), fulfilled (resuelto), rejected (rechazado).
+
+Son principalmente usadas también para evitar el callback hell, pues para realizar una sola operación asincrónica, se requería de muchos callbacks anidados en los que se podía complicar su lectura. Facilita la gestión de errores con el estado de la promesa.
+
+6. Proporciona un ejemplo de cómo se utiliza una promesa para realizar una operación asincrónica, como una solicitud de red.
+
+function asyncRequest(url) {
+  return fetch(url) // Gestor de promesas, quién hace la petición y devuelve el resultado.
+    .then(response => {
+      if (!response.ok) {
+        console.log(`Error en la solicitud: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    });
+}
+
+asyncRequest('Acá iría el endpoint de red')
+  .then(data => {
+    console.log('Datos:', data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+});
+
+7. ¿Qué es JSON Server y cómo se utiliza en el desarrollo web?
+
+8. ¿Por qué es útil simular una API REST falsa con JSON Server en el desarrollo frontend?
+
+Respuesta a las preguntas 7 y 8.
+
+Es un paquete que permite crear una fake APIREST, usando un archivo JSON como base de datos. Simula un servidor y una base de datos sin necesidad de realizar un proceso de backend. Esta herramienta es fundamental para la creación rápida de prototipos y maquetas de interfaces sin esperar la implementación completa del backend, por tanto, facilita la colaboración y sinergia entre equipos. Posibilita también poder realizar pruebas de interfaz de usuario.
+
+Para usarse, primero es necesario instalar la herramienta a nivel global con el siguiente comando: npm install -g json-server. Se crea un archivo JSON (debe tener la extensión .json) e ingresar los datos que debe contener.
+
+{
+  "users": [
+    { "id": 1, "name": "Juan"},
+    { "id": 2, "name": "María"}
+  ]
+}
+
+Ahora, es necesario poner a correr o iniciar el servidor con el siguiente comando: json-server --watch nombreDelArchivoJson.json (es importante que debe ingresarse la ruta en la cual se encuentra el archivo, es decir, si el archivo está dentro de una carpeta llamada data, en el comando se ingresaría data/nombreDelArchivoJson.json).
+
+Finalmente, JSON Server arroja una URL que simulará un endpoint de conexión al servidor y es el link que servirá para realizar las solicitudes o peticiones entre cliente-servidor.
+
+Fuente: https://www.npmjs.com/package/json-server
+
+9. ¿Cuáles son las diferencias claves entre los métodos del objeto promesa .then().catch() y las palabras claves async/await?
+
+Las principales diferencias, son:
+
+- Manejo de errores: 
+
+Al usar .then().catch(), los errores se gestionan por medio de .catch(), mientras que usando async/await, dentro de la funció asincrónica, es necesario definir un controlador de errores tal como try/catch.
+
+- Unión de promesas
+
+En el primer caso, se usa .then() para unir o encadenar promesas consecuentes, por tanto, se tendría un resulado con mayor cantidad de anidaciones; mientras que en el caso de async/await, el código es más fluido tal cual como una función, únicamente es necesario definir al momento de ralizar la solicitud que dicha operación será asicrónica, siendo antecedida por el await.
+
+- Legibilidad del código
+
+Es importante destacar que el uso de async/await siempre será más fácil de leer, interpretar y mantener para el desarrollador, debido a que no suele tener estructuras anidadas.
+
+Fuente: https://www.smashingmagazine.com/2020/11/comparison-async-await-versus-then-catch/
+
+10. Proporciona un ejemplo de cómo configurar una API falsa con JSON Server y realizar solicitudes (GET, POST, PUT, PATCH y DELETE) a través de ella.
+
+Luego de haber seguido el proceso con JSON Server, una fake APIREST, se puede contruír de la siguiente manera, para cada verbo HTTP:
+
+Suponiendo que el endpoint es el siguiente: 
+const URL_BASE = "http://localhost:3000";
+
+- Solicitud GET:
+
+fetch(`${URL_BASE}/users`)
+
+- Solicitud POST:
+
+Objeto a enviar por medio de POST:
+const newObject = {
+  name: "Sara"
+}
+
+fetch(`${URL_BASE}/users`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(newObject),
+})
+
+- Solicitud PUT:
+
+Usuario que se quiere modificar: id=1
+
+fetch(`${URL_BASE}/users/1`, {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ name: 'Jorge' }),
+})
+
+- Solicitud PATCH:
+
+fetch(`${URL_BASE}/users/1`, {
+  method: 'PATCH', // Patch solo modifica pequeños fragmentos del objeto. No actualiza todo el objeto
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ name: 'Eliana' }),
+})
+
+- Solicitud DELETE:
+
+Usuario que se quiere eliminar: id=1
+
+fetch(`${URL_BASE}/users/1`, {
+  method: 'DELETE',
+})
+
+Para captura de errores y recepción del resultado de la petición, se puede usar el siguiente código en todos los casos:
+
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+
+11. Describe las diferencias entre Fetch y Axios como métodos para realizar solicitudes HTTP en JavaScript.
+
+Fetch y Axios son métodos para realizar solicitudes HTTP en JavaScript. Fetch es una API nativa que utiliza promesas y se integra bien con las características modernas de JavaScript, pero requiere el manejo de JSON en su manipulación. Por otro lado, Axios es una biblioteca que simplifica las solicitudes actuando como cliente HTTP, ofrece un formato más conveniente para trabajar con datos JSON y proporciona características adicionales, como la compatibilidad con navegadores antiguos, la cancelación de solicitudes y la protección contra ataques CSRF, lo que lo hace más flexible en algunos escenarios.
+
+Fuente: https://barcelonageeks.com/diferencia-entre-fetch-y-axios-js-para-realizar-requests-http/
+
+12.	¿Por qué es importante considerar las peticiones HTTP en aplicaciones web modernas?
+
+Las peticiones HTTP son fundamentales en aplicaciones web modernas por su papel clave en la carga dinámica de datos, la interactividad del usuario y la comunicación entre servicios. Permiten la integración de APIs externas, la implementación de autenticación y son esenciales para la construcción de aplicaciones eficientes. El manejo de peticiones HTTP es crucial para optimizar el rendimiento, la seguridad y la experiencia del usuario en el entorno web actual.
+
+13.	Proporciona ejemplos de cómo se utilizan Fetch y Axios para realizar solicitudes GET y POST.
+
+17. Proporciona un ejemplo de cómo se puede manejar un error en una promesa al realizar una solicitud de red.
+
+Respuesta a las preguntas 13 y 17.
+
+En el punto 10, se proporcionó ejemplos de la utilización de Fetch al realizar las solicitudes GET y POST; sin embargo, para el caso de Axios, se tiene:
+
+Luego de instalar Axios e importarlo, se procede a crear el objeto necesario para la petición PUT.
+
+async function postRequest(data) {
+  try {
+    const response = await axios.post('Acá debe ir la URL del endpoint dada por JSON Server u otro simulador de fake APIRest', data);
+    console.log('data:', response.data);
+  } catch (error) {
+    console.error('error:', error);
+  }
+}
+
+const data = {
+  title: 'Post',
+  body: 'Content',
+  userId: 1,
+};
+
+postRequest(data);
+
+En el caso de GET, es mucho más sencillo:
+
+async function getRequest() {
+  try {
+    const response = await axios.get('URL Endpoint');
+    console.log('data:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('error:', error);
+  }
+}
+
+const data = getRequest() // Obtención de los datos para su posterior uso
+
+14.	Explica la importancia del manejo de errores al trabajar con promesas en el desarrollo web.
+
+15.	Describe cómo se manejan los errores en las promesas, incluyendo el uso de catch.
+
+Respuesta a las preguntas 14 y 15.
+
+El manejo de errores al trabajar con promesas en el desarrollo web es esencial para asegurar la solidez y fiabilidad de las aplicaciones. Este enfoque garantiza una experiencia del usuario positiva al ofrecer mensajes de error claros y amigables. Facilita la depuración y el mantenimiento, permitiendo la identificación y resolución eficiente de problemas.
+
+En cuanto al asincronísmo, el manejo de errores es especialmente crucial para prevenir rechazos de peticiones no capturados que podrían resultar en comportamientos impredecibles.
+
+Cuando no se usa el bloque catch para capturar los errores, es muy probable que cuando haya un rechazo, dicho va a dirigir al entorno global de Node o al objeto "window", que puede conllevar a una mala experiencia de usuario.
+
+myPromise
+.then(response => {
+  console.log('data:', response);
+})
+.catch(error => {
+  console.error('error:', error); // Este bloque se ejecutará cuando la promesa sea rechazada
+});
+
+Se pueden encadenar varios tipos de errores en la promesa, de la siguiente manera:
+
+.catch(TypeError, error => {
+  console.error('Error de tipo:', error.message); // Si el error es de tipo TypeError
+})
+.catch(error => {
+  console.error('Error general:', error.message); // Otros tipos de errores
+})
+
+16. ¿Cuáles son las diferencias claves entre los métodos del objeto promesa .then().catch() y la estructura try/catch?
+
+.then().catch()
+
+Estructura de métodos.
+Encadenamiento de errores.
+Funciona para objetos promesa.
+Útil en funciones asíncronas.
+
+try/catch
+
+Estrctura de bloques.
+Error en un solo bloque.
+Maneja excepciones de manera asincrónica.
+Útil en funciones asíncronas y síncronas.
