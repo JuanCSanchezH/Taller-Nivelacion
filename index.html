@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bootcamp front-end 6</title>
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./src/styles/index.css">
 </head>
 <!-- Módulo 2  -->
         <!-- Primer punto -->
+<h2>HTML, CSS y Responsive Design</h2>
 <header class="header">
     <h1 class="header__title">Taller de Nivelación</h1>
     <div class="header__info">
@@ -63,6 +64,7 @@
         </section>
 <!-- Módulo 3  -->
         <!-- Primer punto -->
+        <h2>DOM e Interacción con el DOM</h2>
         <section>
             <div>
                 <button type="button" id="toggle-btn">Cambiar color</button>
@@ -84,7 +86,24 @@
                 <button type="submit">Enviar</button>
             </form>
         </section>
+<!-- Módulo 4  -->
+        <!-- Primer punto -->
+        <h2>LocalStorage y SessionStorage</h2>
+
+        <div id="LS&SS">
+            <label for="dato">Ingresa un dato:</label>
+            <input t ype="text" id="name" name="name" placeholder="Escriba su nombre">
+            <input type="text" id="age" name="age" placeholder="Escriba su edad">
+            
+            <button type="button" name="saveInLS" onclick="saveDataInBrowser(event)">Guardar en localStorage</button>
+            <button type="button" name="saveInSS" onclick="saveDataInBrowser(event)">Guardar en sessionStorage</button>
+
+            <h3>Datos almacenados:</h3>
+            <button type="button" name="getFromLS" onclick="getDataFromBrowser(event)">Obtener de localStorage</button>
+            <button type="button" name="getFromSS" onclick="getDataFromBrowser(event)">Obtener de sessionStorage</button>
+            <div id="storagedData"></div>
+        </div>
     </main>
-    <script src="index.js"></script>
+    <script src="./src/script/index.js"></script>
 </body>
 </html>

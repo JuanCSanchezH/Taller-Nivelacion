@@ -1,6 +1,6 @@
 # Taller Nivelación
 
-## Modulo Lógica, Lógica de Programación y Prgramación con Javascript
+## Modulo Lógica, Lógica de Programación y Programación con Javascript
 
 1. ¿Qué es la lógica en el con texto de la programación? Y explicar por qué es importante en el desarrollo web Frontend.
 

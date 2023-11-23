@@ -112,3 +112,30 @@ form.addEventListener("submit", (e) => {
         alert("Formulario correctamente diligenciado");
     }
 })
+
+// PREGUNTAS PRÁCTICAS MODULO 4
+
+// 1. En una sección de la página web construida en los módulos anteriores, permitir a un usuario almacenar y recuperar datos utilizando localStorage y sessionStorage. Demostrar cómo se puede guardar y recuperar datos de estas áreas de almacenamiento del navegador.
+
+const saveDataInBrowser = (e) => {
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+
+    if(name == '' || age == '') alert("No creo que quieras llenar el navegador de información basura. ¡Diligencia los campos, por favor!");
+    else {
+        const data = {
+            name: name,
+            age: age
+        }
+    
+        if(e.target.attributes.name.value == 'saveInLS') localStorage.setItem('data', JSON.stringify(data));
+        else sessionStorage.setItem('data', JSON.stringify(data));
+    }
+}
+
+const getDataFromBrowser = (e) => {
+    const storagedData = document.getElementById('storagedData');
+
+    if(e.target.attributes.name.value == 'getFromLS') storagedData.innerHTML = localStorage.getItem('data');
+    else storagedData.innerHTML = sessionStorage.getItem('data');
+}
