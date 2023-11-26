@@ -1,3 +1,4 @@
+
 // PREGUNTAS PRÁCTICAS MODULO 1
 
 // 1. Escribir un programa con JavaScript que resuelva el siguiente problema: Dada una lista (o	array) de números enteros, encontrar el número más grande de la lista y mostrarlo en consola. No se debe usar la función Math.max(), ni .forEach().
@@ -82,8 +83,6 @@ togglerBtn.addEventListener("click", () => {
     changeColor(flag)
 })
 
-console.log('---------------------------------------------------');
-
 // 2. Crear una lista no ordenada de elementos (por ejemplo, elementos de lista) en el DOM. Implementar la delegación de eventos (event delegation) para que, al hacer clic en cualquier elemento de la lista, se muestre un mensaje en la consola que indique qué elemento de la lista se ha hecho clic.
 
 
@@ -92,8 +91,6 @@ const list = document.getElementById("list");
 list.addEventListener("click", (e) => {
     console.log(e.target.attributes["name"].value);
 })
-
-console.log('---------------------------------------------------');
 
 // 3. Agregar un formulario a tu página web con un campo de entrada y un botón "Enviar". Implementar una función que sea llamada al enviar el formulario y que valide el campo de entrada (por ejemplo, si está vacío), muestre un mensaje de error accesible si es necesario y en caso de que el formulario esté correctamente diligenciado muestre en consola un objeto con el dato que ha ingresado el usuario en el campo de entrada y un alert con el siguiente mensaje: “Formulario correctamente diligenciado”.
 
@@ -117,7 +114,10 @@ form.addEventListener("submit", (e) => {
 
 // 1. En una sección de la página web construida en los módulos anteriores, permitir a un usuario almacenar y recuperar datos utilizando localStorage y sessionStorage. Demostrar cómo se puede guardar y recuperar datos de estas áreas de almacenamiento del navegador.
 
-const saveDataInBrowser = (e) => {
+const saveContainer = document.getElementById('save-info');
+const getContainer = document.getElementById('get-info');
+
+saveContainer.addEventListener('click', (e) => {
     const name = document.getElementById('name').value;
     const age = document.getElementById('age').value;
 
@@ -131,11 +131,89 @@ const saveDataInBrowser = (e) => {
         if(e.target.attributes.name.value == 'saveInLS') localStorage.setItem('data', JSON.stringify(data));
         else sessionStorage.setItem('data', JSON.stringify(data));
     }
-}
+})
 
-const getDataFromBrowser = (e) => {
+getContainer.addEventListener('click', (e) => {
     const storagedData = document.getElementById('storagedData');
 
     if(e.target.attributes.name.value == 'getFromLS') storagedData.innerHTML = localStorage.getItem('data');
     else storagedData.innerHTML = sessionStorage.getItem('data');
+})
+
+// 2. Escribir una función que utilice una promesa para simular una operación asincrónica, como, por ejemplo, una solicitud de datos. Luego, mostrar los resultados de la promesa en una sección en la página web.
+
+function asyncSim() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const datos = "¡Estos son los datos obtenidos!";
+            resolve(datos);
+        }, 1000); // Simular 1 segundo de demora en la adquisición de los datos
+    });
 }
+
+function showResp(resultados) {
+    const resultSection = document.getElementById("resultSection");
+    resultSection.innerHTML = `<p>${resultados}</p>`;
+}
+
+asyncSim()
+    .then((resultados) => {
+        showResp(resultados);
+    })
+    .catch((error) => {
+        console.error("error:", error);
+    });
+
+// 3.	Crear una API falsa con JSON Server y realizar una solicitud GET y POST con Fetch o Axios y mostrar los resultados en una sección de la página web.
+
+import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
+const URL_BASE = 'http://localhost:3000';
+
+const formAPI = document.getElementById('formAPI');
+
+formAPI.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('bandName').value;
+    const gender = document.getElementById('gender').value;
+    let members = document.getElementById('members').value;
+    members = members.split(',');
+    const foundYear = document.getElementById('foundYear').value;
+
+    const band = {
+        nombre: name,
+        anioFormacion: foundYear,
+        genero: gender,
+        miembros: members
+    }
+
+    const resp = await axios.post(`${URL_BASE}/bandas`, band)
+    console.log(resp);
+})
+
+const getDataFromAPI = async () => {
+    try {
+        const response = await axios.get(`${URL_BASE}/bandas`)
+        // console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log("error:", error);
+        return null;
+    }
+}
+
+const showData = async () => {
+    let dataContainer = document.getElementById('dataFromAPI');
+    let data = await getDataFromAPI();
+    data.map(band => {
+        dataContainer.innerHTML += `
+            <tr>
+                <td>${band.nombre}</td>
+                <td>${band.genero}</td>
+                <td>${band.miembros.map(member => member)}</td>
+                <td>${band.anioFormacion}</td>
+            </tr>
+        `
+    })
+}
+
+showData();

@@ -841,7 +841,7 @@ Funciona para objetos promesa.
 
 try/catch
 
-Estrctura de bloques.
+Estructura de bloques.
 Error en un solo bloque.
 Maneja excepciones de manera asincrónica.
 Útil en funciones asíncronas y síncronas.

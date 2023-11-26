@@ -1,28 +1,52 @@
 {
-    "bandas": [
-      {
-        "nombre": "The Beatles",
-        "anioFormacion": 1960,
-        "genero": "Rock",
-        "miembros": ["John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"]
-      },
-      {
-        "nombre": "Queen",
-        "anioFormacion": 1970,
-        "genero": "Rock",
-        "miembros": ["Freddie Mercury", "Brian May", "Roger Taylor", "John Deacon"]
-      },
-      {
-        "nombre": "Led Zeppelin",
-        "anioFormacion": 1968,
-        "genero": "Rock",
-        "miembros": ["Robert Plant", "Jimmy Page", "John Paul Jones", "John Bonham"]
-      },
-      {
-        "nombre": "Pink Floyd",
-        "anioFormacion": 1965,
-        "genero": "Rock Progresivo",
-        "miembros": ["Roger Waters", "David Gilmour", "Richard Wright", "Nick Mason"]
-      }
-    ]
+  "bandas": [
+    {
+      "id": 1,
+      "nombre": "The Beatles",
+      "anioFormacion": 1960,
+      "genero": "Rock",
+      "miembros": [
+        "John Lennon",
+        "Paul McCartney",
+        "George Harrison",
+        "Ringo Starr"
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Queen",
+      "anioFormacion": 1970,
+      "genero": "Rock",
+      "miembros": [
+        "Freddie Mercury",
+        "Brian May",
+        "Roger Taylor",
+        "John Deacon"
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Led Zeppelin",
+      "anioFormacion": 1968,
+      "genero": "Rock",
+      "miembros": [
+        "Robert Plant",
+        "Jimmy Page",
+        "John Paul Jones",
+        "John Bonham"
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Pink Floyd",
+      "anioFormacion": 1965,
+      "genero": "Rock Progresivo",
+      "miembros": [
+        "Roger Waters",
+        "David Gilmour",
+        "Richard Wright",
+        "Nick Mason"
+      ]
+    }
+  ]
 }

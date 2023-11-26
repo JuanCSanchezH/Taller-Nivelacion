@@ -88,22 +88,52 @@
         </section>
 <!-- Módulo 4  -->
         <!-- Primer punto -->
-        <h2>LocalStorage y SessionStorage</h2>
-
+        <h2>LocalStorage, SessionStorage y Asincronísmo</h2>
         <div id="LS&SS">
             <label for="dato">Ingresa un dato:</label>
             <input t ype="text" id="name" name="name" placeholder="Escriba su nombre">
             <input type="text" id="age" name="age" placeholder="Escriba su edad">
             
-            <button type="button" name="saveInLS" onclick="saveDataInBrowser(event)">Guardar en localStorage</button>
-            <button type="button" name="saveInSS" onclick="saveDataInBrowser(event)">Guardar en sessionStorage</button>
-
+            <div id="save-info">
+                <button type="button" name="saveInLS" >Guardar en localStorage</button>
+                <button type="button" name="saveInSS" >Guardar en sessionStorage</button>
+            </div>
+            
             <h3>Datos almacenados:</h3>
-            <button type="button" name="getFromLS" onclick="getDataFromBrowser(event)">Obtener de localStorage</button>
-            <button type="button" name="getFromSS" onclick="getDataFromBrowser(event)">Obtener de sessionStorage</button>
-            <div id="storagedData"></div>
+            <div id="get-info">
+                <button type="button" name="getFromLS" >Obtener de localStorage</button>
+                <button type="button" name="getFromSS" >Obtener de sessionStorage</button>
+                <div id="storagedData"></div>
+            </div>
         </div>
+        <!-- Segundo punto -->
+        <h3>Simulación de promesa</h3>
+        <div id="resultSection"></div>
+        <!-- Tercer punto -->
+        <section >
+            <form id="formAPI">
+                <h3>Añadir una banda</h3>
+                <input type="text" name="bandName" id="bandName" placeholder="Ingrese el nombre del grupo">
+                <input type="text" name="gender" id="gender" placeholder="Ingrese el género de la agrupación">
+                <input type="text" name="members" id="members" placeholder="Ingrese los miembros de la banda separados por una coma (,)">
+                <input type="number" name="foundYear" id="foundYear" placeholder="Ingrese el año de fundación de la banda">
+                <button type="submit">Agregar</button>
+            </form>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Genero</th>
+                        <th>Miembros</th>
+                        <th>Año de fundación</th>
+                    </tr>
+                </thead>
+                <tbody id="dataFromAPI">
+                    
+                </tbody>
+            </table>
+        </section>
     </main>
-    <script src="./src/script/index.js"></script>
+    <script type="module" src="./src/script/index.js"></script>
 </body>
 </html>
